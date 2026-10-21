@@ -1,0 +1,53 @@
+# ===== Секреты и приватные данные =====
+# Файлы с паролями/токенами — НИКОГДА не коммить
+wifi-pass.txt
+*.pass
+*.pwd
+secrets.h
+config_secret.h
+credentials.h
+.env
+.env.*
+
+# ===== Сборка Arduino (arduino-cli / Arduino IDE) =====
+build/
+build-*/
+*.elf
+*.hex
+*.bin
+*.map
+*.eep
+*.o
+*.a
+*.so
+.cache/
+.arduino15/
+arduino-cli.yaml
+
+# ===== Python (для sketch.py) =====
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ===== macOS =====
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ===== Windows =====
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===== Редакторы / IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== Прочее =====
+*.log
+*.tmp
