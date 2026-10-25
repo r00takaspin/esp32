@@ -5,6 +5,7 @@ wifi-pass.txt
 *.pwd
 secrets.h
 config_secret.h
+totp_secrets.h
 credentials.h
 .env
 .env.*
