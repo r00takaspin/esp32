@@ -106,9 +106,9 @@
 
 ### Схема
 
-![Схема подключения KY-040](docs/ky040-wiring.png)
+![Полная схема подключения](docs/wiring-full.png)
 
-Исходник в SVG: [`docs/ky040-wiring.svg`](docs/ky040-wiring.svg). Схема логическая: показаны только задействованные пины, ищи их на плате по подписям.
+Исходник в SVG: [`docs/wiring-full.svg`](docs/wiring-full.svg). На схеме все модули: LCD 1602, DS3231, KY-040 и питание. Одинаковые теги `+5V`, `+3V3`, `GND` означают электрическое соединение.
 
 ---
 
@@ -304,21 +304,13 @@ CORR +3s
 
 ## Миграция аккаунтов из Google Authenticator
 
-В проекте есть утилиты (Python) для переноса аккаунтов:
+1. В Google Authenticator: **Перенос аккаунтов → Экспорт** — появится QR-код.
+2. Отсканируй QR любым сканером, который показывает текст, и скопируй URL `otpauth-migration://...`.
+3. В портале (`Setup`) открой **«Импорт из Google Authenticator»**, вставь URL и нажми **«Импортировать»**.
 
-1. **`decode_qr.py`** — декодирует QR-код экспорта (нужен `opencv-python`):
-   ```bash
-   python3 decode_qr.py ~/Downloads/photo.jpg
-   ```
-2. **`unpack_migration.py`** — распаковывает `otpauth-migration://` в список аккаунтов:
-   ```bash
-   python3 decode_qr.py photo.jpg | python3 unpack_migration.py
-   ```
-   На выходе — название и `secret (base32)` для каждого аккаунта.
+Портал сам разберёт migration-URL и добавит все поддерживаемые аккаунты: **TOTP / SHA1 / 6 цифр**. Аккаунты с SHA256/SHA512, 8 цифрами или HOTP будут пропущены. Лимит — 16 аккаунтов.
 
-   Но проще: в портале (`Setup`) есть поле **«Импорт из Google Authenticator»** — вставь туда `otpauth-migration://...` и нажми «Импортировать». Портал сам разберёт URL и добавит все поддерживаемые аккаунты (TOTP/SHA1/6 цифр). `unpack_migration.py` остаётся для ручной проверки.
-
-> Оба скрипта печатают результат только в локальный терминал, ничего не отправляют.
+Отдельные Python-скрипты для распаковки больше не нужны.
 
 ---
 
@@ -329,11 +321,9 @@ CORR +3s
 | `totp/totp.ino` | **Основная прошивка** (TOTP-генератор) |
 | `totp/totp_secrets.h.example` | Легаси-шаблон (прошивкой не используется) |
 | `totp/totp_secrets.h` | Легаси-бэкап секретов (в `.gitignore`) |
-| `docs/ky040-wiring.svg` | Векторная схема подключения KY-040 |
-| `docs/ky040-wiring.png` | Растровая версия схемы для README |
-| `docs/gen_ky040_wiring.py` | Генератор схемы |
-| `decode_qr.py` | Декодирование QR экспорта |
-| `unpack_migration.py` | Распаковка `otpauth-migration://` |
+| `docs/wiring-full.svg` | Векторная схема всей периферии |
+| `docs/wiring-full.png` | Растровая версия схемы для README |
+| `docs/gen_wiring_full.py` | Генератор полной схемы |
 | `i2c_scan/` | Сканер устройств на шине I²C |
 | `rtc_set/` | Установка времени DS3231 |
 
